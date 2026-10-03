@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ЖК «Райки» — Пенза</title>
+  <meta name="description" content="Информационный сайт жилого комплекса «Райки», Пенза, ул. Ключевая, 99: объявления, контакты, полезная информация для жителей.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#top">
+        <span class="logo-mark">Р</span>
+        <span class="logo-text">ЖК «Райки»<small>Пенза, ул. Ключевая, 99</small></span>
+      </a>
+      <button class="menu-toggle" aria-label="Меню" aria-expanded="false">☰</button>
+      <nav class="nav">
+        <a href="#news">Объявления</a>
+        <a href="#about">О доме</a>
+        <a href="#contacts">Контакты</a>
+        <a href="#useful">Полезное</a>
+        <a href="#map">Как добраться</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <h1>Жилой комплекс «Райки»</h1>
+        <p class="lead">Информационная страница для жителей: объявления управляющей компании и совета дома, важные телефоны, графики и полезные ссылки.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#news">Свежие объявления</a>
+          <a class="btn btn-ghost" href="#contacts">Важные телефоны</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="news" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Объявления</h2>
+          <div class="filters" role="tablist" aria-label="Фильтр объявлений">
+            <button class="chip active" data-filter="all">Все</button>
+            <button class="chip" data-filter="important">Важное</button>
+            <button class="chip" data-filter="utilities">ЖКХ</button>
+            <button class="chip" data-filter="events">События</button>
+          </div>
+        </div>
+        <div id="news-list" class="news-list"></div>
+        <p id="news-empty" class="muted" hidden>Пока нет объявлений в этой категории.</p>
+      </div>
+    </section>
+
+    <section id="about" class="section section-alt">
+      <div class="container">
+        <h2>О доме</h2>
+        <div class="stats">
+          <div class="stat"><span class="stat-value">16</span><span class="stat-label">этажей</span></div>
+          <div class="stat"><span class="stat-value">6</span><span class="stat-label">подъездов</span></div>
+          <div class="stat"><span class="stat-value">2019</span><span class="stat-label">год постройки</span></div>
+          <div class="stat"><span class="stat-value">Кирпич</span><span class="stat-label">материал стен</span></div>
+        </div>
+        <p>Дом расположен по адресу <strong>Пенза, Ленинский район, ул. Ключевая, 99</strong> (индекс 440008) и входит в жилой комплекс «Райки». Рядом — остановка общественного транспорта «Некрасова» (около 250 м, 3 минуты пешком), магазины, аптеки и кафе.</p>
+      </div>
+    </section>
+
+    <section id="contacts" class="section">
+      <div class="container">
+        <h2>Контакты</h2>
+        <div id="contacts-list" class="cards"></div>
+      </div>
+    </section>
+
+    <section id="useful" class="section section-alt">
+      <div class="container">
+        <h2>Полезное</h2>
+        <div id="useful-list" class="cards"></div>
+      </div>
+    </section>
+
+    <section id="map" class="section">
+      <div class="container">
+        <h2>Как добраться</h2>
+        <p>Пенза, ул. Ключевая, 99. Остановка «Некрасова» — в 3 минутах пешком.</p>
+        <div class="map-wrap">
+          <iframe title="Карта: ЖК «Райки», ул. Ключевая, 99"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=44.9708%2C53.1947%2C44.9908%2C53.2028&amp;layer=mapnik&amp;marker=53.19875%2C44.980775"
+            loading="lazy"></iframe>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://2gis.ru/penza/geo/70030076196447523" target="_blank" rel="noopener">Открыть в 2ГИС</a>
+          <a class="btn btn-ghost" href="https://yandex.ru/maps/?pt=44.980775,53.19875&amp;z=17&amp;l=map" target="_blank" rel="noopener">Открыть в Яндекс Картах</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>ЖК «Райки», г. Пенза, ул. Ключевая, 99</p>
+      <p class="muted">Неофициальный информационный сайт для жителей. Обновлено: <span id="updated"></span></p>
+    </div>
+  </footer>
+
+  <script src="data/content.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
