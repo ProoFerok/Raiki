@@ -2,39 +2,65 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>ЖК «Райки» — Пенза</title>
   <meta name="description" content="Информационный сайт жилого комплекса «Райки», Пенза, ул. Ключевая, 99: объявления, контакты, полезная информация для жителей.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23b4462b'/><g fill='%23f2c14e'><rect x='7' y='7' width='5' height='5'/><rect x='20' y='7' width='5' height='5'/><rect x='7' y='15' width='5' height='5'/><rect x='20' y='15' width='5' height='5'/></g><rect x='13' y='22' width='6' height='10' fill='%23fff'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="#top">
-        <span class="logo-mark">Р</span>
-        <span class="logo-text">ЖК «Райки»<small>Пенза, ул. Ключевая, 99</small></span>
+      <a class="wordmark" href="#top">
+        <span class="wordmark-name">Райки</span>
+        <span class="wordmark-addr">Пенза · Ключевая, 99</span>
       </a>
-      <button class="menu-toggle" aria-label="Меню" aria-expanded="false">☰</button>
-      <nav class="nav">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav" id="nav">
         <a href="#news">Объявления</a>
-        <a href="#about">О доме</a>
-        <a href="#contacts">Контакты</a>
+        <a href="#contacts">Телефоны</a>
         <a href="#useful">Полезное</a>
-        <a href="#map">Как добраться</a>
+        <a href="#about">О доме</a>
+        <a href="#map">Карта</a>
       </nav>
     </div>
   </header>
 
   <main id="top">
     <section class="hero">
-      <div class="container">
-        <h1>Жилой комплекс «Райки»</h1>
-        <p class="lead">Информационная страница для жителей: объявления управляющей компании и совета дома, важные телефоны, графики и полезные ссылки.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#news">Свежие объявления</a>
-          <a class="btn btn-ghost" href="#contacts">Важные телефоны</a>
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <p class="eyebrow">Для жителей ЖК «Райки»</p>
+          <h1>Новости и важная информация нашего дома</h1>
+          <p class="lead">Объявления управляющей компании и совета дома, телефоны аварийных служб, сроки передачи показаний.</p>
+
+          <div class="widgets">
+            <div class="widget widget-meter">
+              <span class="widget-label">Показания счётчиков</span>
+              <span class="widget-value" id="meter-deadline">до 15 числа</span>
+              <span class="widget-note" id="meter-left"></span>
+            </div>
+            <div class="widget widget-sos">
+              <span class="widget-label">Экстренные службы</span>
+              <span class="widget-value"><a href="tel:112">112</a> <span class="sep">·</span> газ <a href="tel:104">104</a></span>
+              <span class="widget-note">круглосуточно, бесплатно</span>
+            </div>
+          </div>
         </div>
+
+        <figure class="facade-wrap" aria-label="Схема фасада: 16 этажей, 6 подъездов">
+          <div class="facade" id="facade"></div>
+          <figcaption class="facade-caption">
+            <span><b>16</b> этажей</span>
+            <span><b>6</b> подъездов</span>
+            <span><b>2019</b> год</span>
+          </figcaption>
+        </figure>
       </div>
     </section>
 
@@ -42,66 +68,69 @@
       <div class="container">
         <div class="section-head">
           <h2>Объявления</h2>
-          <div class="filters" role="tablist" aria-label="Фильтр объявлений">
-            <button class="chip active" data-filter="all">Все</button>
-            <button class="chip" data-filter="important">Важное</button>
-            <button class="chip" data-filter="utilities">ЖКХ</button>
-            <button class="chip" data-filter="events">События</button>
+          <div class="filters" aria-label="Фильтр объявлений">
+            <button class="chip active" id="filter-all" data-filter="all">Все</button>
+            <button class="chip" id="filter-important" data-filter="important">Важное</button>
+            <button class="chip" id="filter-utilities" data-filter="utilities">ЖКХ</button>
+            <button class="chip" id="filter-events" data-filter="events">События</button>
           </div>
         </div>
         <div id="news-list" class="news-list"></div>
-        <p id="news-empty" class="muted" hidden>Пока нет объявлений в этой категории.</p>
+        <p id="news-empty" class="muted" hidden>В этой категории пока нет объявлений.</p>
       </div>
     </section>
 
-    <section id="about" class="section section-alt">
+    <section id="contacts" class="section section-tint">
       <div class="container">
-        <h2>О доме</h2>
-        <div class="stats">
-          <div class="stat"><span class="stat-value">16</span><span class="stat-label">этажей</span></div>
-          <div class="stat"><span class="stat-value">6</span><span class="stat-label">подъездов</span></div>
-          <div class="stat"><span class="stat-value">2019</span><span class="stat-label">год постройки</span></div>
-          <div class="stat"><span class="stat-value">Кирпич</span><span class="stat-label">материал стен</span></div>
+        <div class="section-head"><h2>Телефоны</h2></div>
+        <ul id="contacts-list" class="phone-list"></ul>
+      </div>
+    </section>
+
+    <section id="useful" class="section">
+      <div class="container">
+        <div class="section-head"><h2>Полезное</h2></div>
+        <ul id="useful-list" class="useful-list"></ul>
+      </div>
+    </section>
+
+    <section id="about" class="section section-tint">
+      <div class="container about-grid">
+        <div>
+          <h2>О доме</h2>
+          <p>Дом по адресу <strong>Пенза, Ленинский район, ул. Ключевая, 99</strong> входит в жилой комплекс «Райки». Рядом остановка «Некрасова» (около 250 м, 3 минуты пешком), магазины, аптеки и кафе.</p>
         </div>
-        <p>Дом расположен по адресу <strong>Пенза, Ленинский район, ул. Ключевая, 99</strong> (индекс 440008) и входит в жилой комплекс «Райки». Рядом — остановка общественного транспорта «Некрасова» (около 250 м, 3 минуты пешком), магазины, аптеки и кафе.</p>
-      </div>
-    </section>
-
-    <section id="contacts" class="section">
-      <div class="container">
-        <h2>Контакты</h2>
-        <div id="contacts-list" class="cards"></div>
-      </div>
-    </section>
-
-    <section id="useful" class="section section-alt">
-      <div class="container">
-        <h2>Полезное</h2>
-        <div id="useful-list" class="cards"></div>
+        <dl class="facts">
+          <div><dt>Этажность</dt><dd>16</dd></div>
+          <div><dt>Подъезды</dt><dd>6</dd></div>
+          <div><dt>Год постройки</dt><dd>2019</dd></div>
+          <div><dt>Стены</dt><dd>кирпич</dd></div>
+          <div><dt>Индекс</dt><dd>440008</dd></div>
+          <div><dt>Район</dt><dd>Ленинский</dd></div>
+        </dl>
       </div>
     </section>
 
     <section id="map" class="section">
       <div class="container">
-        <h2>Как добраться</h2>
-        <p>Пенза, ул. Ключевая, 99. Остановка «Некрасова» — в 3 минутах пешком.</p>
+        <div class="section-head"><h2>Как добраться</h2></div>
         <div class="map-wrap">
           <iframe title="Карта: ЖК «Райки», ул. Ключевая, 99"
             src="https://www.openstreetmap.org/export/embed.html?bbox=44.9708%2C53.1947%2C44.9908%2C53.2028&amp;layer=mapnik&amp;marker=53.19875%2C44.980775"
             loading="lazy"></iframe>
         </div>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="https://2gis.ru/penza/geo/70030076196447523" target="_blank" rel="noopener">Открыть в 2ГИС</a>
-          <a class="btn btn-ghost" href="https://yandex.ru/maps/?pt=44.980775,53.19875&amp;z=17&amp;l=map" target="_blank" rel="noopener">Открыть в Яндекс Картах</a>
+        <div class="map-links">
+          <a class="btn" href="https://2gis.ru/penza/geo/70030076196447523" target="_blank" rel="noopener">Открыть в 2ГИС</a>
+          <a class="btn btn-outline" href="https://yandex.ru/maps/?pt=44.980775,53.19875&amp;z=17&amp;l=map" target="_blank" rel="noopener">Яндекс Карты</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container">
-      <p>ЖК «Райки», г. Пенза, ул. Ключевая, 99</p>
-      <p class="muted">Неофициальный информационный сайт для жителей. Обновлено: <span id="updated"></span></p>
+    <div class="container footer-inner">
+      <span class="wordmark-name small">Райки</span>
+      <span class="muted">Неофициальный сайт для жителей · обновлено <span id="updated"></span></span>
     </div>
   </footer>
 
