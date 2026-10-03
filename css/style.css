@@ -13,8 +13,26 @@
   --events: #74509a;
   --window: #d6dbe3;
   --window-lit: #f2c14e;
-  --facade: #b4462b;
   --door: #3a2a24;
+  --sky-top: #bcd8ee;
+  --sky-bottom: #eaf2f8;
+  --cloud: #ffffff;
+  --wall: #b4532f;
+  --wall-line: #a14727;
+  --wall-side: #8c3e22;
+  --trim: #f3eee7;
+  --glass: #8eb1ca;
+  --glass-hi: #bed6e7;
+  --glass-night: #8eb1ca;
+  --lit: #f6c65b;
+  --plinth: #8b9099;
+  --roof: #6f7580;
+  --ground: #97bb76;
+  --path: #cdd0d5;
+  --tree: #5f9a4c;
+  --tree-dark: #4a7f3b;
+  --trunk: #6b4a35;
+  --canopy: #e4ded5;
   --on-brick: #ffffff;
 
   --font-display: "Unbounded", "Arial Black", system-ui, sans-serif;
@@ -26,7 +44,12 @@
     --bg: #12151b; --surface: #1a1f27; --tint: #161a21; --ink: #e8ebf0; --muted: #9aa3b2;
     --line: #2a313c; --brick: #e0714f; --brick-ink: #f08a6a; --brick-soft: #34221d;
     --utilities: #6fa3d6; --events: #b38ad8; --window: #262c36; --window-lit: #f2c14e;
-    --facade: #8a3a26; --door: #120e0c; --on-brick: #1a0f0b;
+    --door: #120e0c; --on-brick: #1a0f0b;
+    --sky-top: #0b1322; --sky-bottom: #1d2a44; --cloud: #33415c;
+    --wall: #7c3622; --wall-line: #6b2e1c; --wall-side: #5a2617; --trim: #bdb6ab;
+    --glass: #1c2838; --glass-hi: #24344a; --glass-night: #f4bf4f; --lit: #f4bf4f;
+    --plinth: #3c4149; --roof: #2c3038; --ground: #1e3324; --path: #2b3038;
+    --tree: #24452b; --tree-dark: #1a3420; --trunk: #3a2a20; --canopy: #5a544c;
     color-scheme: dark;
   }
 }
@@ -34,7 +57,12 @@
   --bg: #12151b; --surface: #1a1f27; --tint: #161a21; --ink: #e8ebf0; --muted: #9aa3b2;
   --line: #2a313c; --brick: #e0714f; --brick-ink: #f08a6a; --brick-soft: #34221d;
   --utilities: #6fa3d6; --events: #b38ad8; --window: #262c36; --window-lit: #f2c14e;
-  --facade: #8a3a26; --door: #120e0c; --on-brick: #1a0f0b;
+  --door: #120e0c; --on-brick: #1a0f0b;
+    --sky-top: #0b1322; --sky-bottom: #1d2a44; --cloud: #33415c;
+    --wall: #7c3622; --wall-line: #6b2e1c; --wall-side: #5a2617; --trim: #bdb6ab;
+    --glass: #1c2838; --glass-hi: #24344a; --glass-night: #f4bf4f; --lit: #f4bf4f;
+    --plinth: #3c4149; --roof: #2c3038; --ground: #1e3324; --path: #2b3038;
+    --tree: #24452b; --tree-dark: #1a3420; --trunk: #3a2a20; --canopy: #5a544c;
   color-scheme: dark;
 }
 
@@ -113,16 +141,31 @@ h1, h2, h3 { text-wrap: balance; }
 /* Facade */
 .facade-wrap { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
 .facade {
-  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px;
-  padding: 10px 10px 0; background: var(--facade); border-radius: 6px 6px 0 0;
-  width: 100%; max-width: 420px;
+  width: 100%; max-width: 480px; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--line); line-height: 0;
 }
-.entrance { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
-.win { aspect-ratio: 1 / 1.25; background: var(--window); border-radius: 1px; }
-.win.lit { background: var(--window-lit); }
-.door {
-  grid-column: 2; aspect-ratio: 1 / 1.6; background: var(--door); border-radius: 2px 2px 0 0; margin-top: 3px;
-}
+.facade svg { display: block; width: 100%; height: auto; }
+.f-sky-top { stop-color: var(--sky-top); }
+.f-sky-bottom { stop-color: var(--sky-bottom); }
+.f-cloud { fill: var(--cloud); opacity: 0.7; }
+.f-wall { fill: var(--wall); }
+.f-brick { fill: none; stroke: var(--wall-line); stroke-width: 0.6; }
+.f-side { fill: var(--wall-side); }
+.f-trim { fill: var(--trim); }
+.f-glass { fill: var(--glass); }
+.f-glass.n { fill: var(--glass-night); }
+.f-glass.lit { fill: var(--lit); }
+.f-hi { fill: var(--glass-hi); opacity: 0.55; }
+.f-frame { fill: none; stroke: var(--trim); stroke-width: 1.2; }
+.f-plinth { fill: var(--plinth); }
+.f-roof { fill: var(--roof); }
+.f-door { fill: var(--door); }
+.f-canopy { fill: var(--canopy); }
+.f-ground { fill: var(--ground); }
+.f-path { fill: var(--path); }
+.f-tree { fill: var(--tree); }
+.f-tree-dark { fill: var(--tree-dark); }
+.f-trunk { fill: var(--trunk); }
 .facade-caption { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; font-size: 14px; color: var(--muted); }
 .facade-caption b { font-family: var(--font-display); color: var(--ink); font-size: 16px; }
 
@@ -215,7 +258,7 @@ h1, h2, h3 { text-wrap: balance; }
 
 @media (max-width: 860px) {
   .hero-grid, .about-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-  .facade { max-width: 340px; }
+  .facade { max-width: 420px; }
   .phone-list, .useful-list { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 760px) {
