@@ -49,11 +49,11 @@
   // Рисунок дома: 16 этажей, 6 подъездов, кирпич, застеклённые лоджии.
   function renderFacade() {
     const FLOORS = 16, SECTIONS = 6;
-    const W = 600, H = 500, GROUND = 452;
+    const W = 600, H = 510, GROUND = 462;
     const X0 = 36, SW = 78, X1 = X0 + SW * SECTIONS;
     const PLINTH = 28, FH = 22, PARAPET = 10;
     const TOP = GROUND - PLINTH - FLOORS * FH - PARAPET;
-    const DEPTH = 40, RISE = 14;
+    const DEPTH = 44, RISE = 22;
 
     let seed = 11;
     function rand() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
@@ -84,15 +84,33 @@
     out.push('<ellipse class="f-cloud" cx="90" cy="70" rx="46" ry="11"/><ellipse class="f-cloud" cx="118" cy="62" rx="28" ry="10"/>');
     out.push('<ellipse class="f-cloud" cx="560" cy="120" rx="38" ry="9"/>');
 
+    // земля под домом (горизонт чуть выше основания — вид немного сверху)
+    out.push(r("f-ground", 0, GROUND - RISE - 4, W, H - GROUND + RISE + 4));
+
     // боковая стена для объёма
     out.push('<polygon class="f-side" points="' + X1 + "," + TOP + " " + (X1 + DEPTH) + "," + (TOP - RISE) + " " +
-      (X1 + DEPTH) + "," + (GROUND - 6) + " " + X1 + "," + GROUND + '"/>');
+      (X1 + DEPTH) + "," + (GROUND - RISE) + " " + X1 + "," + GROUND + '"/>');
     for (let f = 0; f < FLOORS; f++) {
       const y = TOP + PARAPET + f * FH + 5;
       const a = 12, b = 26, k = RISE / DEPTH;
       out.push('<polygon class="' + glassCls() + '" points="' +
         (X1 + a) + "," + (y - a * k) + " " + (X1 + b) + "," + (y - b * k) + " " +
         (X1 + b) + "," + (y + 12 - b * k) + " " + (X1 + a) + "," + (y + 12 - a * k) + '"/>');
+    }
+
+    // плоская крыша с парапетом
+    out.push('<polygon class="f-roof-top" points="' + X0 + "," + TOP + " " + X1 + "," + TOP + " " +
+      (X1 + DEPTH) + "," + (TOP - RISE) + " " + (X0 + DEPTH) + "," + (TOP - RISE) + '"/>');
+    out.push('<polyline class="f-parapet" points="' + X0 + "," + TOP + " " + (X0 + DEPTH) + "," + (TOP - RISE) + " " +
+      (X1 + DEPTH) + "," + (TOP - RISE) + " " + (X1 + DEPTH) + "," + (TOP - RISE + 4) + '"/>');
+    for (let s = 0; s < SECTIONS; s++) {
+      // машинное помещение лифта: коробка на крыше
+      const bx = X0 + s * SW + SW / 2 - 12 + DEPTH * 0.45, by = TOP - RISE * 0.45;
+      out.push(r("f-roof", bx, by - 14, 22, 14));
+      out.push('<polygon class="f-roof-side" points="' + (bx + 22) + "," + (by - 14) + " " + (bx + 30) + "," + (by - 17) + " " +
+        (bx + 30) + "," + (by - 3) + " " + (bx + 22) + "," + by + '"/>');
+      out.push('<polygon class="f-trim" points="' + bx + "," + (by - 14) + " " + (bx + 22) + "," + (by - 14) + " " +
+        (bx + 30) + "," + (by - 17) + " " + (bx + 8) + "," + (by - 17) + '"/>');
     }
 
     // фасад: кирпич, парапет, цоколь
@@ -104,9 +122,6 @@
 
     for (let s = 0; s < SECTIONS; s++) {
       const x = X0 + s * SW;
-      // машинное помещение лифта на крыше
-      out.push(r("f-roof", x + SW / 2 - 14, TOP - 18, 28, 18));
-      out.push(r("f-trim", x + SW / 2 - 16, TOP - 20, 32, 3));
       // колонна лоджий
       out.push(r("f-trim", x + 24, TOP + PARAPET - 3, 30, FLOORS * FH + 3));
       for (let f = 0; f < FLOORS; f++) {
@@ -129,8 +144,7 @@
       out.push(r("f-canopy", cx - 11, GROUND, 22, 4));
     }
 
-    // земля, тротуар
-    out.push(r("f-ground", 0, GROUND, W, H - GROUND));
+    // тротуар
     out.push(r("f-path", 0, GROUND + 4, W, 9));
 
     // деревья во дворе
@@ -200,7 +214,7 @@
       item.append(el("h3", "", c.title));
       if (c.phone) {
         const a = el("a", "phone-num", c.phone);
-        a.href = "tel:" + c.phone.replace(/[^\d+]/g, "");
+        a.href = "tel:" + c.phone.split(",")[0].replace(/[^\d+]/g, "");
         item.append(a);
       } else {
         item.append(el("span", "phone-num pending", "уточняется"));
