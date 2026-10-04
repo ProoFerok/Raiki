@@ -213,6 +213,20 @@ h1, h2, h3 { text-wrap: balance; }
 .news-body p { margin: 0 0 8px; max-width: 42em; }
 .news-body p:last-child { margin-bottom: 0; }
 
+/* Разделы в разработке */
+.soon-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.soon-card {
+  display: flex; flex-direction: column; gap: 6px; padding: 18px 20px;
+  border: 1.5px dashed var(--line); border-radius: var(--radius); background: var(--surface);
+}
+.soon-card h3 { margin: 0; font-size: 18px; }
+.soon-card p { margin: 0; font-size: 14px; color: var(--muted); }
+.soon-badge {
+  align-self: flex-start; padding: 2px 10px; border-radius: 999px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  background: var(--brick-soft); color: var(--brick-ink);
+}
+
 /* Phones */
 .phone-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .phone-item {
@@ -269,6 +283,7 @@ h1, h2, h3 { text-wrap: balance; }
   .hero-grid, .about-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .facade { max-width: 420px; }
   .phone-list, .useful-list { grid-template-columns: minmax(0, 1fr); }
+  .soon-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
   .menu-toggle { display: flex; }
@@ -285,6 +300,7 @@ h1, h2, h3 { text-wrap: balance; }
   .wordmark-addr { display: none; }
   .hero { padding-block: 32px 40px; }
   .widgets { grid-template-columns: minmax(0, 1fr); }
+  .soon-grid { grid-template-columns: minmax(0, 1fr); }
   .news-item { grid-template-columns: 56px minmax(0, 1fr); gap: 14px; }
   .news-day { font-size: 26px; }
   .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
